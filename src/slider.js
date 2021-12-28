@@ -1,4 +1,5 @@
 let thumb = slider.querySelector('.thumb');
+let abobs = null;
 
 thumb.onmousedown = function(event) {
   event.preventDefault(); // предотвратить запуск выделения (действие браузера)
