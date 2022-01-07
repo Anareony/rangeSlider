@@ -1,32 +1,42 @@
-const path = require('path')
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-
+const path = require('path');
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: './src/index.js',
     output: {
-        filename: "bundle.js",
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true
     },
-
-    devtool: "source-map",
     
-    resolve: {
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".jsx"]
-    },
+    devtool: "source-map",
 
     plugins: [
-        new HTMLWebpackPlugin({
-            template: "./src/index.html"
+        new HtmlWebpackPlugin({
+            'filename': 'index.html',
+            'template': './src/index.html'
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
         })
     ],
 
     module: {
-        rules: [
-            { test: /\.tsx?$/, loader: "ts-loader" },
-            { test: /\.js?$/, loader: "source-map-loader" },
-            { test: /\.css$/i, use: ["style-loader", "css-loader"]}
-        ]
-    }
-}
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    use: ['ts-loader']
+                },
+                {
+                    test: /\.css$/i,
+                    use: ['style-loader','css-loader']
+                }
+            ]
+    },
+    resolve: {
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".jsx"]
+    },
+};

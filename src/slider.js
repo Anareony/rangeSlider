@@ -1,37 +1,47 @@
-let thumb = slider.querySelector('.thumb');
-let abobs = null;
+let thumb1 = slider.querySelector('.thumb1');
+let thumb2 = slider.querySelector('.thumb2');
+    
+    
+    thumb1.onmousedown = function (event) {
+        
+        event.preventDefault();
 
-thumb.onmousedown = function(event) {
-  event.preventDefault(); // предотвратить запуск выделения (действие браузера)
-
-  let shiftX = event.clientX - thumb.getBoundingClientRect().left;
-  // shiftY здесь не нужен, слайдер двигается только по горизонтали
-
-  document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
-
-  function onMouseMove(event) {
-    let newLeft = event.clientX - shiftX - slider.getBoundingClientRect().left;
-
-    // курсор вышел из слайдера => оставить бегунок в его границах.
-    if (newLeft < 0) {
-      newLeft = 0;
-    }
-    let rightEdge = slider.offsetWidth - thumb.offsetWidth;
-    if (newLeft > rightEdge) {
-      newLeft = rightEdge;
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
     }
 
-    thumb.style.left = newLeft + 'px';
-  }
+    
+    function onMouseMove(event) {
+        let newLeft1 = event.clientX - slider.getBoundingClientRect().left;
+        let newLeft2 = event.clientX - slider.getBoundingClientRect().left;
 
-  function onMouseUp() {
-    document.removeEventListener('mouseup', onMouseUp);
-    document.removeEventListener('mousemove', onMouseMove);
-  }
+        if (newLeft1 < 0) {
+        newLeft1 = 0;
+        }
+        let rightEdge1 = slider.offsetWidth - thumb1.offsetWidth;
+        if (newLeft1 > rightEdge1) {
+        newLeft1 = rightEdge1;
+        }
 
-};
+        if (newLeft2 < 0) {
+        newLeft2 = 0;
+        }
+        let rightEdge2 = slider.offsetWidth - thumb2.offsetWidth;
+        if (newLeft2 > rightEdge2) {
+        newLeft2 = rightEdge2;
+        }
 
-thumb.ondragstart = function() {
-  return false;
-};
+        thumb1.style.left = newLeft1 + 'px';
+        thumb2.style.left = newLeft2 + 'px';
+    }
+
+
+    function onMouseUp() {
+        document.removeEventListener('mouseup', onMouseUp);
+        document.removeEventListener('mousemove', onMouseMove);
+    }
+
+
+    thumb.ondragstart = function() {
+        return false;
+    };
