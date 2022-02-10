@@ -7,23 +7,12 @@
     margin: 5px;
   }
   
-  .thumb1 {
+  .thumb {
     width: 10px;
     height: 25px;
     border-radius: 3px;
     position: relative;
     top: -5px;
-    background: blue;
-    cursor: pointer;
-  }
-
-  .thumb2 {
-    width: 10px;
-    height: 25px;
-    border-radius: 3px;
-    position: relative;
-  
-    top: 0px;
     background: blue;
     cursor: pointer;
   }

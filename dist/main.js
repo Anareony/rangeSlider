@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".slider {\r\n    border-radius: 5px;\r\n    background: #E0E0E0;\r\n    background: linear-gradient(left top, #E0E0E0, #EEEEEE);\r\n    width: 310px;\r\n    height: 15px;\r\n    margin: 5px;\r\n  }\r\n  \r\n  .thumb1 {\r\n    width: 10px;\r\n    height: 25px;\r\n    border-radius: 3px;\r\n    position: relative;\r\n    top: -5px;\r\n    background: blue;\r\n    cursor: pointer;\r\n  }\r\n\r\n  .thumb2 {\r\n    width: 10px;\r\n    height: 25px;\r\n    border-radius: 3px;\r\n    position: relative;\r\n  \r\n    top: 0px;\r\n    background: blue;\r\n    cursor: pointer;\r\n  }", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,kBAAkB;IAClB,mBAAmB;IACnB,uDAAuD;IACvD,YAAY;IACZ,YAAY;IACZ,WAAW;EACb;;EAEA;IACE,WAAW;IACX,YAAY;IACZ,kBAAkB;IAClB,kBAAkB;IAClB,SAAS;IACT,gBAAgB;IAChB,eAAe;EACjB;;EAEA;IACE,WAAW;IACX,YAAY;IACZ,kBAAkB;IAClB,kBAAkB;;IAElB,QAAQ;IACR,gBAAgB;IAChB,eAAe;EACjB","sourcesContent":[".slider {\r\n    border-radius: 5px;\r\n    background: #E0E0E0;\r\n    background: linear-gradient(left top, #E0E0E0, #EEEEEE);\r\n    width: 310px;\r\n    height: 15px;\r\n    margin: 5px;\r\n  }\r\n  \r\n  .thumb1 {\r\n    width: 10px;\r\n    height: 25px;\r\n    border-radius: 3px;\r\n    position: relative;\r\n    top: -5px;\r\n    background: blue;\r\n    cursor: pointer;\r\n  }\r\n\r\n  .thumb2 {\r\n    width: 10px;\r\n    height: 25px;\r\n    border-radius: 3px;\r\n    position: relative;\r\n  \r\n    top: 0px;\r\n    background: blue;\r\n    cursor: pointer;\r\n  }"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".slider {\r\n    border-radius: 5px;\r\n    background: #E0E0E0;\r\n    background: linear-gradient(left top, #E0E0E0, #EEEEEE);\r\n    width: 310px;\r\n    height: 15px;\r\n    margin: 5px;\r\n  }\r\n  \r\n  .thumb {\r\n    width: 10px;\r\n    height: 25px;\r\n    border-radius: 3px;\r\n    position: relative;\r\n    top: -5px;\r\n    background: blue;\r\n    cursor: pointer;\r\n  }", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,kBAAkB;IAClB,mBAAmB;IACnB,uDAAuD;IACvD,YAAY;IACZ,YAAY;IACZ,WAAW;EACb;;EAEA;IACE,WAAW;IACX,YAAY;IACZ,kBAAkB;IAClB,kBAAkB;IAClB,SAAS;IACT,gBAAgB;IAChB,eAAe;EACjB","sourcesContent":[".slider {\r\n    border-radius: 5px;\r\n    background: #E0E0E0;\r\n    background: linear-gradient(left top, #E0E0E0, #EEEEEE);\r\n    width: 310px;\r\n    height: 15px;\r\n    margin: 5px;\r\n  }\r\n  \r\n  .thumb {\r\n    width: 10px;\r\n    height: 25px;\r\n    border-radius: 3px;\r\n    position: relative;\r\n    top: -5px;\r\n    background: blue;\r\n    cursor: pointer;\r\n  }"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -545,53 +545,48 @@ module.exports = styleTagTransform;
   \***********************/
 /***/ (() => {
 
-let thumb1 = slider.querySelector('.thumb1');
-let thumb2 = slider.querySelector('.thumb2');
-    
-    
-    thumb1.onmousedown = function (event) {
-        
+const thumb = slider.querySelector('.thumb'); 
+class sliders {
+    constructor(){
+        this.addEventListeners();
+    }
+
+    addEventListeners(event) {   
         event.preventDefault();
-
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
+        thumb.addEventListener('mousedown', this.Starege.bind(this));
     }
 
+    Starege() {
+        document.addEventListener('mousemove', this.onMouseMove.bind(this));
+        document.addEventListener('mouseup', this.onMouseUp.bind(this));
+    }
     
-    function onMouseMove(event) {
-        let newLeft1 = event.clientX - slider.getBoundingClientRect().left;
-        let newLeft2 = event.clientX - slider.getBoundingClientRect().left;
+    onMouseMove(event) {
+        let newLeft = event.clientX - slider.getBoundingClientRect().left;
 
-        if (newLeft1 < 0) {
-        newLeft1 = 0;
+        if (newLeft < 0) {
+        newLeft = 0;
         }
-        let rightEdge1 = slider.offsetWidth - thumb1.offsetWidth;
-        if (newLeft1 > rightEdge1) {
-        newLeft1 = rightEdge1;
-        }
+        
+        let rightEdge = slider.offsetWidth - thumb.offsetWidth;
 
-        if (newLeft2 < 0) {
-        newLeft2 = 0;
-        }
-        let rightEdge2 = slider.offsetWidth - thumb2.offsetWidth;
-        if (newLeft2 > rightEdge2) {
-        newLeft2 = rightEdge2;
+        if (newLeft > rightEdge) {
+        newLeft = rightEdge;
         }
 
-        thumb1.style.left = newLeft1 + 'px';
-        thumb2.style.left = newLeft2 + 'px';
+        thumb.style.left = newLeft + 'px';
     }
 
-
-    function onMouseUp() {
-        document.removeEventListener('mouseup', onMouseUp);
-        document.removeEventListener('mousemove', onMouseMove);
+    onMouseUp() {
+        document.removeEventListener('mouseup', this.onMouseUp);
+        document.removeEventListener('mousemove', this.onMouseMove);
     }
+}
+
+const sliderObserver = new sliders()
+    
 
 
-    thumb.ondragstart = function() {
-        return false;
-    };
 
 /***/ })
 

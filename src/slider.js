@@ -1,47 +1,41 @@
-let thumb1 = slider.querySelector('.thumb1');
-let thumb2 = slider.querySelector('.thumb2');
-    
-    
-    thumb1.onmousedown = function (event) {
-        
+const thumb = slider.querySelector('.thumb'); 
+class sliders {
+    constructor(){
+        this.addEventListeners();
+    }
+
+    addEventListeners(event) {   
         event.preventDefault();
-
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
+        thumb.addEventListener('mousedown', this.Starege.bind(this));
     }
 
+    Starege() {
+        document.addEventListener('mousemove', this.onMouseMove.bind(this));
+        document.addEventListener('mouseup', this.onMouseUp.bind(this));
+    }
     
-    function onMouseMove(event) {
-        let newLeft1 = event.clientX - slider.getBoundingClientRect().left;
-        let newLeft2 = event.clientX - slider.getBoundingClientRect().left;
+    onMouseMove(event) {
+        let newLeft = event.clientX - slider.getBoundingClientRect().left;
 
-        if (newLeft1 < 0) {
-        newLeft1 = 0;
+        if (newLeft < 0) {
+        newLeft = 0;
         }
-        let rightEdge1 = slider.offsetWidth - thumb1.offsetWidth;
-        if (newLeft1 > rightEdge1) {
-        newLeft1 = rightEdge1;
-        }
+        
+        let rightEdge = slider.offsetWidth - thumb.offsetWidth;
 
-        if (newLeft2 < 0) {
-        newLeft2 = 0;
-        }
-        let rightEdge2 = slider.offsetWidth - thumb2.offsetWidth;
-        if (newLeft2 > rightEdge2) {
-        newLeft2 = rightEdge2;
+        if (newLeft > rightEdge) {
+        newLeft = rightEdge;
         }
 
-        thumb1.style.left = newLeft1 + 'px';
-        thumb2.style.left = newLeft2 + 'px';
+        thumb.style.left = newLeft + 'px';
     }
 
-
-    function onMouseUp() {
-        document.removeEventListener('mouseup', onMouseUp);
-        document.removeEventListener('mousemove', onMouseMove);
+    onMouseUp() {
+        document.removeEventListener('mouseup', this.onMouseUp);
+        document.removeEventListener('mousemove', this.onMouseMove);
     }
+}
 
+const sliderObserver = new sliders()
+    
 
-    thumb.ondragstart = function() {
-        return false;
-    };
